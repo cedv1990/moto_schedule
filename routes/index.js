@@ -9,6 +9,7 @@ var test = require('../services/test');
 });*/
 
 router.get('/test', test.ping);
-router.get('/test/mail', test.sendMailTest);
+router.get('/test/calendar', test.viewCalendar);
+router.get('/test/calendar/add', test.addCalendar);
 
 module.exports = router;

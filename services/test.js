@@ -1,5 +1,5 @@
 var db = require('../utilities/database');
-var mail = require('../utilities/mail');
+var calendar = require('../utilities/calendar');
 
 var test = function(req, res, next){
 	db.database().any('select * from test')
@@ -16,8 +16,21 @@ var test = function(req, res, next){
     });
 }
 
-var send = function(req, res, next){
-  mail.send('carlos.diaz@sinco.com.co', 'Prueba', 'Hola mundo', function(msj){
+var list = function(req, res, next){
+  calendar.list(function(msj){
+    res.status(200)
+      .json({
+        status: 'success',
+        data: msj,
+        message: 'Test complete'
+      });
+  }, function(error){
+    console.log(error);
+  });
+}
+
+var add = function(req, res, next){
+  calendar.add(function(msj){
     res.status(200)
       .json({
         status: 'success',
@@ -31,5 +44,6 @@ var send = function(req, res, next){
 
 module.exports = {
   ping: test,
-  sendMailTest: send
+  viewCalendar: list,
+  addCalendar: add
 };
